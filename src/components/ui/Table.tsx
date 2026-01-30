@@ -1,19 +1,33 @@
 'use client'
-import { assets } from '@/src/data/mockData'
+import { assets, simulatePriceUpdate } from '@/src/data/mockData'
 import { useFilter } from '@/src/hooks/useFilter'
 import { useSort } from '@/src/hooks/useSort'
 import { Asset } from '@/src/types/asset'
 import { ArrowUp, ArrowUpDown } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const Table = () => {
+    const [updatedData, setUpdatedData] = useState(assets)
+
+
     const [sortingValue, setSortingValue] = useState<keyof Asset>('name') //sorting value
-    const sortedArray = useSort(assets, sortingValue) // sorted data
+    const sortedArray = useSort(updatedData, sortingValue) // sorted data
 
     const [filterValue, setFilterValue] = useState('All') // filter value
-    const filterdData = useFilter(sortedArray, 'type',filterValue) // filtered data
-    
+    const filterdData = useFilter(sortedArray, 'type', filterValue) // filtered data
+
     const data = filterValue === 'All' ? sortedArray : filterdData
+
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setUpdatedData(prev =>
+                prev.map(asset => simulatePriceUpdate(asset))
+            )
+        }, 3000)
+
+        return () => clearInterval(interval)
+    }, [])
 
     return (
         <div>
@@ -26,7 +40,7 @@ const Table = () => {
                         </div>
                         <input type="text" id="input-group-1" className="block w-full max-w-96 ps-9 pe-3 py-2 bg-b-secondary border border-border  text-heading text-sm rounded-lg shadow-xs placeholder:text-t-secondary" placeholder="Search" />
                     </div>
-           
+
                     <form className="max-w-sm mx-auto">
                         {/* <label htmlFor="countries" className="block mb-2.5 text-sm font-medium text-heading">Select an option</label> */}
                         <select onChange={(e) => setSortingValue(e.target.value as keyof Asset)} id="countries" className="block text-t-primary px-3 py-2.5 bg-b-main border cursor-pointer border-border rounded text-heading text-sm shadow-xs placeholder:text-green-500">
@@ -51,34 +65,34 @@ const Table = () => {
                 <table className="w-full text-sm text-left rtl:text-right text-body">
                     <thead className="text-sm text-t-primary border-b border-t border-border">
                         <tr>
-                        
+
                             <th scope="col" className="px-6 py-3 font-medium flex gap-1 text-blue-700">
-                                Asset Name {<ArrowUp className='w-5'/>}
+                                Asset Name {<ArrowUp className='w-5' />}
                             </th>
                             <th scope="col" className="px-6 py-3 font-medium text-t-secondary text-[13px]">
                                 TYPE
                             </th>
                             <th scope="col" className="px-6 py-3 font-medium flex gap-1">
-                                Current Price {<ArrowUpDown className='text-gray-400 w-5'/>}
+                                Current Price {<ArrowUpDown className='text-gray-400 w-5' />}
                             </th>
                             <th scope="col" className="px-6 py-3 font-medium text-t-secondary text-[13px]">
-                                QUANTITY   
+                                QUANTITY
                             </th>
                             <th scope="col" className="px-6 py-3 font-medium flex gap-1">
-                                Total value {<ArrowUpDown className='text-gray-400 w-5'/>}
+                                Total value {<ArrowUpDown className='text-gray-400 w-5' />}
                             </th>
-                          
+
                             <th scope="col" className="px-6 py-3 font-medium">
                                 Last Updated
                             </th>
-                              <th scope="col" className="px-6 py-3 font-medium flex  gap-1">
-                                24h Change <span></span>{<ArrowUpDown className='text-gray-400 w-5'/>}
+                            <th scope="col" className="px-6 py-3 font-medium flex  gap-1">
+                                24h Change <span></span>{<ArrowUpDown className='text-gray-400 w-5' />}
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         {data.map((asset) => <tr key={asset.id} className=" border-b border-border hover:bg-hover text-t-primary">
-                           
+
                             <th scope="row" className="px-6 py-4 font-medium text-heading whitespace-nowrap">
                                 {asset.name}
                             </th>
@@ -92,7 +106,7 @@ const Table = () => {
                                 {asset.quantity}
                             </td>
                             <td className="px-6 py-4">
-                                ${(asset.currentPrice * asset.quantity).toFixed(2)} 
+                                ${(asset.currentPrice * asset.quantity).toFixed(2)}
                             </td>
                             <td className="px-6 py-4">
                                 {asset.lastUpdated.toLocaleTimeString('en-US')}
@@ -103,7 +117,7 @@ const Table = () => {
                         </tr>
 
                         )}
-                          
+
 
                     </tbody>
                 </table>
