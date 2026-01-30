@@ -1,4 +1,5 @@
 import AnalysisCard from "../components/ui/AnalysisCard";
+import Table from "../components/ui/Table";
 
 export default function Home() {
   return (<>
@@ -10,7 +11,8 @@ export default function Home() {
           <AnalysisCard value={'$-850'} title={'24Change (value)'} />
           <AnalysisCard value={'-0.8%'} title={'24Change (%)'} />
         </div>
-        </main>
+      </main>
+      <Table/>
     </div>
   </>
 

@@ -31,7 +31,7 @@ export default function RootLayout({
       >
         <ThemeProvider>
           < Navbar />
-          <div className="m-17.5">
+          <div className="mt-17.5">
             {children}
 
           </div>
