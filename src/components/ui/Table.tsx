@@ -1,38 +1,20 @@
 'use client'
-import { assets, simulatePriceUpdate } from '@/src/data/mockData'
-import { useFilter } from '@/src/hooks/useFilter'
-import { useSort } from '@/src/hooks/useSort'
+import useData from '@/src/hooks/useData'
 import { Asset } from '@/src/types/asset'
+import { motion } from 'framer-motion'
 import { ArrowUp, ArrowUpDown, TrendingDown, TrendingUp } from 'lucide-react'
-import { useEffect, useState } from 'react'
 
 const Table = () => {
-    const [updatedData, setUpdatedData] = useState(assets)
+
+    const { data, setSortingValue, setFilterValue } = useData()
 
 
-    const [sortingValue, setSortingValue] = useState<keyof Asset>('name') //sorting value
-    const sortedArray = useSort(updatedData, sortingValue) // sorted data
-
-    const [filterValue, setFilterValue] = useState('All') // filter value
-    const filterdData = useFilter(sortedArray, 'type', filterValue) // filtered data
-
-    const data = filterValue === 'All' ? sortedArray : filterdData
-    
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setUpdatedData(prev =>
-                prev.map(asset => simulatePriceUpdate(asset))
-            )
-        }, 3000)
-
-        return () => clearInterval(interval)
-    }, [])
-
-
-    
     return (
-        <div>
+        <motion.div
+            initial={{ y: 700 }}
+            animate={{ y: 0 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+        >
             <div className="relative overflow-x-auto bg-b-main shadow-xs rounded-base border border-border rounded-lg mx-7">
                 <div className="p-4 flex items-center justify-between space-x-4">
                     <label htmlFor="input-group-1" className="sr-only">Search</label>
@@ -117,9 +99,9 @@ const Table = () => {
                             <td className="px-6 py-4">
                                 {asset.lastUpdated.toLocaleTimeString('en-US')}
                             </td>
-                            <td className={`${asset.change24h>=0? 'text-success': 'text-error'} px-6 py-4 font-medium text-[16px]`}>
-                               
-                                {asset.change24h >= 0 ? (<TrendingUp className="w-4 h-4 inline mr-1" />) : <TrendingDown className='w-4 h-4 inline mr-1'/>}
+                            <td className={`${asset.change24h >= 0 ? 'text-success' : 'text-error'} px-6 py-4 font-medium text-[16px]`}>
+
+                                {asset.change24h >= 0 ? (<TrendingUp className="w-4 h-4 inline mr-1" />) : <TrendingDown className='w-4 h-4 inline mr-1' />}
                                 {asset.change24h >= 0 ? '+' : ''}{asset.change24h}%
                             </td>
                         </tr>
@@ -132,7 +114,7 @@ const Table = () => {
             </div>
 
 
-        </div>
+        </motion.div>
     )
 }
 
