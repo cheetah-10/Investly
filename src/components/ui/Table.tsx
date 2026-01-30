@@ -3,7 +3,7 @@ import { assets, simulatePriceUpdate } from '@/src/data/mockData'
 import { useFilter } from '@/src/hooks/useFilter'
 import { useSort } from '@/src/hooks/useSort'
 import { Asset } from '@/src/types/asset'
-import { ArrowUp, ArrowUpDown } from 'lucide-react'
+import { ArrowUp, ArrowUpDown, TrendingDown, TrendingUp } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 const Table = () => {
@@ -17,7 +17,7 @@ const Table = () => {
     const filterdData = useFilter(sortedArray, 'type', filterValue) // filtered data
 
     const data = filterValue === 'All' ? sortedArray : filterdData
-
+    
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -29,6 +29,8 @@ const Table = () => {
         return () => clearInterval(interval)
     }, [])
 
+
+    
     return (
         <div>
             <div className="relative overflow-x-auto bg-b-main shadow-xs rounded-base border border-border rounded-lg mx-7">
@@ -63,41 +65,45 @@ const Table = () => {
                     </form>
                 </div>
                 <table className="w-full text-sm text-left rtl:text-right text-body">
-                    <thead className="text-sm text-t-primary border-b border-t border-border">
+                    <thead className="text-[16px] text-t-primary border-b border-t border-border font-semibold">
                         <tr>
 
-                            <th scope="col" className="px-6 py-3 font-medium flex gap-1 text-blue-700">
+                            <th scope="col" className="px-6 py-3 flex gap-1 text-blue-700">
                                 Asset Name {<ArrowUp className='w-5' />}
                             </th>
-                            <th scope="col" className="px-6 py-3 font-medium text-t-secondary text-[13px]">
+                            <th scope="col" className="px-6 py-3 text-t-secondary text-[13px]">
                                 TYPE
                             </th>
-                            <th scope="col" className="px-6 py-3 font-medium flex gap-1">
+                            <th scope="col" className="px-6 py-3 flex gap-1">
                                 Current Price {<ArrowUpDown className='text-gray-400 w-5' />}
                             </th>
-                            <th scope="col" className="px-6 py-3 font-medium text-t-secondary text-[13px]">
+                            <th scope="col" className="px-6 py-3 text-t-secondary text-[13px]">
                                 QUANTITY
                             </th>
-                            <th scope="col" className="px-6 py-3 font-medium flex gap-1">
+                            <th scope="col" className="px-6 py-3 flex gap-1">
                                 Total value {<ArrowUpDown className='text-gray-400 w-5' />}
                             </th>
 
-                            <th scope="col" className="px-6 py-3 font-medium">
+                            <th scope="col" className="px-6 py-3">
                                 Last Updated
                             </th>
-                            <th scope="col" className="px-6 py-3 font-medium flex  gap-1">
+                            <th scope="col" className="px-6 py-3 flex  gap-1">
                                 24h Change <span></span>{<ArrowUpDown className='text-gray-400 w-5' />}
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        {data.map((asset) => <tr key={asset.id} className=" border-b border-border hover:bg-hover text-t-primary">
+                        {data.map((asset) => <tr key={asset.id} className=" border-b border-border hover:bg-hover text-t-primary font-semibold text-[15px]">
 
-                            <th scope="row" className="px-6 py-4 font-medium text-heading whitespace-nowrap">
+                            <th className="px-6 py-4 flex flex-col font-semibold text-lg whitespace-nowrap">
                                 {asset.name}
+                                <p className='text-t-secondary text-[13px]'>
+                                    {asset.symbol}
+
+                                </p>
                             </th>
                             <td className={`px-6 py-4 text-[13px]`}>
-                                <p className={`rounded-full text-center w-fit px-2 py-1 ${asset.type === 'Crypto' ? 'text-purple-600 bg-purple-200' : 'text-green-600 bg-green-200'}`}> {asset.type}</p>
+                                <p className={`rounded-full font-semibold w-fit px-2 py-1 ${asset.type === 'Crypto' ? 'text-purple-600 bg-purple-200' : 'text-green-600 bg-green-200'}`}> {asset.type}</p>
                             </td>
                             <td className="px-6 py-4">
                                 ${asset.currentPrice.toFixed(2)}
@@ -111,8 +117,10 @@ const Table = () => {
                             <td className="px-6 py-4">
                                 {asset.lastUpdated.toLocaleTimeString('en-US')}
                             </td>
-                            <td className="px-6 py-4">
-                                {asset.change24h}%
+                            <td className={`${asset.change24h>=0? 'text-success': 'text-error'} px-6 py-4 font-medium text-[16px]`}>
+                               
+                                {asset.change24h >= 0 ? (<TrendingUp className="w-4 h-4 inline mr-1" />) : <TrendingDown className='w-4 h-4 inline mr-1'/>}
+                                {asset.change24h >= 0 ? '+' : ''}{asset.change24h}%
                             </td>
                         </tr>
 
