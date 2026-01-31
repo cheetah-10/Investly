@@ -74,17 +74,12 @@ export default function Navbar() {
                 </div>
                 <ul className="p-2 text-sm text-body font-medium" aria-labelledby="user-menu-button">
                     <li>
-                        <a href="#" className="inline-flex items-center w-full p-2 hover:bg-hover transition-all duration-1000 ease-in-out rounded">Dashboard</a>
+                        <Link href="/" className="inline-flex items-center w-full p-2 hover:bg-hover transition-all duration-1000 ease-in-out rounded">Dashboard</Link>
                     </li>
                     <li>
-                        <a href="#" className="inline-flex items-center w-full p-2 hover:bg-hover transition-all duration-1000 ease-in-out rounded">Analytics</a>
+                        <Link href="/analytics" className="inline-flex items-center w-full p-2 hover:bg-hover transition-all duration-1000 ease-in-out rounded">Analytics</Link>
                     </li>
-                    <li>
-                        <a href="#" className="inline-flex items-center w-full p-2 hover:bg-hover transition-all duration-1000 ease-in-out rounded">Earnings</a>
-                    </li>
-                    <li>
-                        <a href="#" className="inline-flex items-center w-full p-2 hover:bg-hover transition-all duration-1000 ease-in-out rounded">Sign out</a>
-                    </li>
+    
                 </ul>
             </div>
             <Modal isOpen={isModalOpen}
