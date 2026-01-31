@@ -17,6 +17,7 @@ type DataContextType = {
     totalChangeVal: number
     setSearchValue: (value: string) => void
     searchValue: string
+    updatedData: Asset[]
 }
 
 const DataContext = createContext<DataContextType | undefined>(undefined)
@@ -97,6 +98,7 @@ export const DataContextProvider = ({ children }: { children: ReactNode }) => {
             totalChangePer,
             setSearchValue,
             searchValue,
+            updatedData,
         }}>
             {children}
         </DataContext.Provider>

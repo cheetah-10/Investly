@@ -1,13 +1,19 @@
 'use client'
 import { ChartArea, Moon, Sun, User2 } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { motion } from "framer-motion";
 import { useThemeContext } from "@/src/context/ThemeContext";
+import { SearchContext } from "@/src/context/SearchContext";
+import Modal from "../ui/Modal";
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false)
-    const {isDark, toggleTheme} = useThemeContext()
+    const { isDark, toggleTheme } = useThemeContext()
+    const { searchResults, searchQuery, setSearchQuery } = useContext(SearchContext)!
+
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [selectedAsset, setSelectedAsset] = useState<any | null>(null)
 
     return (
         <>
@@ -18,21 +24,41 @@ export default function Navbar() {
 
                 className="bg-b-main shadow-lg fixed w-full z-20 top-0 start-0">
                 <div className="max-w-7xl flex flex-wrap items-center justify-between mx-auto p-4">
-                    <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
-                        <span className="p-2 bg-primary rounded-md text-white">
-                            <ChartArea />
+                    <Link href="/" className="flex items-center md:space-x-2 space-x-1 ">
+                        <span className="md:p-2 p-1 bg-primary rounded-md text-white">
+                            <ChartArea className="md:w-6 md:h-6 w-5 h-5" />
                         </span>
-                        <span className="self-center text-xl text-t-primary font-semibold whitespace-nowrap">Investly</span>
+                        <span className="self-center md:text-xl text-t-primary font-semibold whitespace-nowrap">Investly</span>
                     </Link>
-
-                    <div className="flex gap-5 items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+                    <div className="relative">
+                        <input
+                            type="search"
+                            placeholder="Search assets..."
+                            value={searchQuery}
+                            onChange={e => setSearchQuery(e.target.value)}
+                            className="border-blue-900 border bg-b-secondary text-t-primary cursor-pointer rounded-lg p-2 md:w-64 w-40 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                        {searchResults.length > 0 && (
+                            <div className="absolute top-full left-0 right-0  bg-b-secondary text-t-secondary border-border shadow-lg rounded-lg">
+                                {searchResults.map(asset => (
+                                    <div onClick={() => {
+                                        setSelectedAsset(asset)
+                                        setIsModalOpen(true)
+                                    }} key={asset.id} className="p-2 hover:bg-hover cursor-pointer">
+                                        {asset.name} - {asset.symbol}
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                    <div className="flex md:gap-5 gap-1 items-center md:order-2">
                         <span onClick={toggleTheme} className="cursor-pointer">
-                           {isDark? <Sun  className="text-amber-300"/>: <Moon className="text-blue-950"/>}
+                            {isDark ? <Sun className="text-amber-300" /> : <Moon className="text-blue-950" />}
 
                         </span>
                         <button onClick={() => setIsOpen(!isOpen)} type="button" className="flex text-sm bg-neutral-primary rounded-full md:me-0 focus:ring-4 focus:ring-neutral-tertiary">
                             <span className="sr-only">Open user menu</span>
-                            <User2 className="text-t-primary"/>
+                            <User2 className="text-t-primary" />
                         </button>
 
                     </div>
@@ -61,7 +87,9 @@ export default function Navbar() {
                     </li>
                 </ul>
             </div>
-
+            <Modal isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                asset={selectedAsset} />
         </>
     )
 }

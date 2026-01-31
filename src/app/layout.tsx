@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "../components/common/Navbar";
 import { ThemeProvider } from "../context/ThemeContext";
 import { DataContextProvider } from "../context/DataContext";
+import SearchContextProvider from "../context/SearchContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,11 +33,13 @@ export default function RootLayout({
       >
         <ThemeProvider>
           <DataContextProvider>
+            <SearchContextProvider>
             < Navbar />
             <div className="mt-17.5">
               {children}
 
             </div>
+            </SearchContextProvider>
           </DataContextProvider>
         </ThemeProvider>
 
