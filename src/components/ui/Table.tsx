@@ -15,38 +15,46 @@ const Table = () => {
             animate={{ y: 0 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
         >
-            <div className="relative overflow-x-auto bg-b-main shadow-xs rounded-base border border-border rounded-lg mx-7">
-                <div className="p-4 flex items-center justify-between space-x-4">
+            <div className="relative overflow-x-auto bg-b-main shadow-xs border border-border rounded-lg mx-7">
+                <div className="
+  p-4
+  grid
+  grid-cols-1 md:grid-cols-2
+  gap-3
+ md:items-center
+">
                     <label htmlFor="input-group-1" className="sr-only">Search</label>
-                    <div className="relative">
+                    <div className="relative w-full">
+
                         <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                             <svg className="w-4 h-4 text-body" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width={24} height={24} fill="none" viewBox="0 0 24 24"><path stroke='blue' strokeLinecap="round" strokeWidth={2} d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" /></svg>
                         </div>
-                        <input type="search" onChange={(e)=>setSearchValue(e.target.value)} id="input-group-1" className="block w-full max-w-96 ps-9 pe-3 py-2 bg-b-secondary border border-border  text-t-secondary text-sm rounded-lg shadow-xs placeholder:text-t-secondary" placeholder="Search" />
+                        <input type="search" onChange={(e) => setSearchValue(e.target.value)} id="input-group-1" className="w-full ps-9 pe-3 py-2 bg-b-secondary border border-border  text-t-secondary text-sm rounded-lg shadow-xs placeholder:text-t-secondary" placeholder="Search" />
                     </div>
-
-                    <form className="max-w-sm mx-auto">
-                        {/* <label htmlFor="countries" className="block mb-2.5 text-sm font-medium text-heading">Select an option</label> */}
-                        <select onChange={(e) => setSortingValue(e.target.value as keyof Asset)} id="countries" className="block text-t-primary px-3 py-2.5 bg-b-main border cursor-pointer border-border rounded text-heading text-sm shadow-xs placeholder:text-green-500">
-                            <option defaultValue="Sort">Sort by</option>
-                            <option value="name">Name</option>
-                            <option value="symbol">Symbol</option>
-                            <option value="currentPrice">Price</option>
-                            <option value="quantity">Quantity</option>
-                            <option value="change24h">Change rate</option>
-                        </select>
-                    </form>
-                    <form className="max-w-sm mx-auto">
-                        {/* <label htmlFor="countries" className="block mb-2.5 text-sm font-medium text-heading">Select an option</label> */}
-                        <select onChange={(e) => setFilterValue(e.target.value)} className="block text-t-primary px-3 py-2.5 bg-b-main border cursor-pointer border-border rounded text-heading text-sm shadow-xs placeholder:text-green-500">
-                            <option defaultValue="Sort">Filter by</option>
-                            <option value="All">All</option>
-                            <option value="Crypto">Crypto</option>
-                            <option value="Stock">Stock</option>
-                        </select>
-                    </form>
+                    <div className="flex gap-2 w-full md:w-auto">
+                        <form className="max-w-sm mx-auto">
+                            {/* <label htmlFor="countries" className="block mb-2.5 text-sm font-medium text-heading">Select an option</label> */}
+                            <select onChange={(e) => setSortingValue(e.target.value as keyof Asset)} id="countries" className="w-full md:w-auto text-t-primary px-3 py-2.5 bg-b-main border cursor-pointer border-border rounded text-heading text-sm shadow-xs placeholder:text-green-500">
+                                <option defaultValue="Sort">Sort by</option>
+                                <option value="name">Name</option>
+                                <option value="symbol">Symbol</option>
+                                <option value="currentPrice">Price</option>
+                                <option value="quantity">Quantity</option>
+                                <option value="change24h">Change rate</option>
+                            </select>
+                        </form>
+                        <form className="max-w-sm mx-auto">
+                            {/* <label htmlFor="countries" className="block mb-2.5 text-sm font-medium text-heading">Select an option</label> */}
+                            <select onChange={(e) => setFilterValue(e.target.value)} className="w-full md:w-auto text-t-primary px-3 py-2.5 bg-b-main border cursor-pointer border-border rounded text-heading text-sm shadow-xs ">
+                                <option defaultValue="Sort">Filter</option>
+                                <option value="All">All</option>
+                                <option value="Crypto">Crypto</option>
+                                <option value="Stock">Stock</option>
+                            </select>
+                        </form>
+                    </div>
                 </div>
-                <table className="w-full text-sm text-left rtl:text-right text-body">
+                <table className="hidden md:table  w-full text-sm text-left rtl:text-right text-body">
                     <thead className="text-[16px] text-t-primary border-b border-t border-border font-semibold">
                         <tr>
 

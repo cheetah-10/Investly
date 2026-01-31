@@ -1,5 +1,6 @@
 'use client'
 import AnalysisCard from "../components/ui/AnalysisCard";
+import Card from "../components/ui/Card";
 import Table from "../components/ui/Table";
 import useData from "../hooks/useData";
 
@@ -15,7 +16,8 @@ export default function Home() {
           <AnalysisCard value={totalChangePer.toFixed(2) + '%'} title={'24Change (%)'} color={totalChangePer>=0?'text-success':'text-error'}/>
         </div>
       </main>
-      <Table/>
+      <Table />
+      <Card/>
     </div>
   </>
 
