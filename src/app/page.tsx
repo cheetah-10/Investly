@@ -7,7 +7,7 @@ import useData from "../hooks/useData";
 export default function Home() {
   const {totalValue, totalChangePer, totalChangeVal} = useData()
   return (<>
-    <div className=" bg-b-secondary font-sans">
+    <div className=" bg-b-secondary font-sans min-h-screen">
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {/* Portfolio Summary Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">

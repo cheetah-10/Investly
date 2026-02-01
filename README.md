@@ -1,36 +1,141 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📊 Investly
 
-## Getting Started
+**Investly** is a modern investment dashboard built with **Next.js** that provides real-time asset tracking, analytics, and data visualization for stocks and cryptocurrencies.
 
-First, run the development server:
+The project focuses on clean architecture, performance, and a responsive user experience across all screen sizes.
+
+---
+
+## ✨ Features
+
+- 📈 **Real-time asset simulation** (price updates)
+- 🔍 **Debounced global search** for assets
+- 🧠 **Advanced filtering & sorting**
+- 🌗 **Dark / Light mode**
+- 📊 **Analytics dashboard** with:
+  - Area Chart
+  - Line Chart
+  - Bar Chart
+- 📱 **Fully responsive UI**
+  - Table layout on desktop
+  - Card layout on small screens
+- 🧩 **Global state management using React Context**
+- ⚡ **Optimized calculations with `useMemo`**
+- 🎞️ Smooth animations using **Framer Motion**
+
+---
+### Screenshots
+
+## 🖥 Dashboard
+
+![Dashboard](public/screenshots/dashboard.png)
+
+## 📊 Analytics
+
+![Analytics](public/screenshots/analytics.png)
+
+## 📱 Mobile View
+
+![Mobile](public/screenshots/mobileviewdashboard.png)
+![Mobile](public/screenshots/mobileviewcharts.png)
+
+
+---
+## 🛠️ Tech Stack
+
+- **Next.js (App Router)**
+- **React**
+- **TypeScript**
+- **Tailwind CSS**
+- **Recharts**
+- **Framer Motion**
+- **Lucide Icons**
+
+---
+
+## 🧱 Project Structure
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+src/
+├── app/
+│ └── analytics/
+├── components/
+│ ├── ui/
+│ ├── charts/
+│ └── common/
+├── context/
+│ ├── DataContext.tsx
+│ ├── ThemeContext.tsx
+│ └── SearchContext.tsx
+├── hooks/
+│ ├── useData.ts
+│ ├── useDebounce.ts
+│ ├── useFilter.ts
+│ ├── useTheme.ts
+│ └── useSort.ts
+├── data/
+│ └── mockData.ts
+└── types/
+└── asset.ts
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📊 Analytics Page
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The Analytics page includes interactive charts powered by **Recharts**:
 
-## Learn More
+- **Area Chart** → Tracks asset price trends
+- **Pie Chart** → Visualizes asset distribution
 
-To learn more about Next.js, take a look at the following resources:
+Charts are fully connected to the global data context and update dynamically.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🚀 Getting Started
 
-## Deploy on Vercel
+### 1️⃣ Clone the repository
+```bash
+git clone https://github.com/cheetah-10/investly.git
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 2️⃣ Install dependencies
+```bash
+npm install
+```
+### 3️⃣ Run the development server
+```bash
+npm run dev
+```
+
+👉 Open http://localhost:3000 to view the app.
+
+### 🧠 Architecture Notes
+
+- Business logic is extracted into custom hooks
+
+- UI components are kept clean and reusable
+
+- Contexts are separated by responsibility
+
+- Heavy calculations are memoized for performance
+
+### 📌 Future Improvements
+
+- 🔐 Authentication
+
+- 🌍 Real API integration
+
+- 📉 More chart types
+
+- ⭐ Watchlist & favorites
+
+- 🧪 Unit & integration tests
+
+### 👩‍💻 Author
+
+## Menna Shehata
+- Front-End Developer (React / Next.js)
+- GitHub: [github.com/cheetah-10]
