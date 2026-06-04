@@ -4,7 +4,7 @@
 
 The project focuses on clean architecture, performance, and a responsive user experience across all screen sizes.
 
-#[Live Demo](https://investly-drab.vercel.app)
+[Live Demo](https://investly-drab.vercel.app)
 
 ---
 
@@ -141,4 +141,4 @@ npm run dev
 
 ## Menna Shehata
 - Front-End Developer (React / Next.js)
-- [GitHub](https://github.com/cheetah-10)
+- [My GitHub](https://github.com/cheetah-10)
